@@ -15,6 +15,7 @@ public class BaseException extends RuntimeException{
     
     
     protected String    code = null;
+    protected String    errorContext         = null;
     protected String    errorDescription     = null;
     protected String    errorCorrection      = null;
     protected String    url = null;
@@ -54,6 +55,15 @@ public class BaseException extends RuntimeException{
 		return message;
 	}
 
+	
+	public String getErrorContext() {
+		return errorContext;
+	}
+
+	public void setErrorContext(String errorContext) {
+		this.errorContext = errorContext;
+	}
+
 	public String getErrorDescription() {
 		return errorDescription;
 	}
@@ -89,7 +99,7 @@ public class BaseException extends RuntimeException{
 			sb.append(String.format("1. Cause:    %n"));
 			sb.append(String.format("	class:    %s%n", cause.getClass()
 					.getName()));
-			sb.append(String.format("	message:  %s%n", cause.getStackTrace()));
+			sb.append(String.format("	trace:  %s%n", cause.getStackTrace()));
 		}
 
 		if (code != null) {
@@ -104,16 +114,22 @@ public class BaseException extends RuntimeException{
 			sb.append(String.format("4. Url:  %s%n",
 					url));
 		}
+		
+		if (errorContext != null) {
+			sb.append(String.format("5. errorContext:      %s%n",
+					errorContext));
+		}
+		
 		if (errorDescription != null) {
-			sb.append(String.format("5. ErrorDescription:      %s%n",
+			sb.append(String.format("6. ErrorDescription:      %s%n",
 					errorDescription));
 		}
 		if (errorCorrection != null) {
-			sb.append(String.format("6. ErrorCorrection:       %s%n",
+			sb.append(String.format("7. ErrorCorrection:       %s%n",
 					errorCorrection));
 		}
 		if (!additionalInfos.isEmpty()) {
-			sb.append(String.format("7. AddtionalInfos:%n"));
+			sb.append(String.format("8. AddtionalInfos:%n"));
 			for (String s : additionalInfos.keySet()) {
 				String v = additionalInfos.get(s).toString();
 				sb.append(String.format("    name=[%s] value=[%s]%n", s, v));

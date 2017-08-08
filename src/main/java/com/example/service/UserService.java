@@ -17,6 +17,7 @@ public class UserService {
     	}catch(SocketTimeoutException e){
     		//retry first
     		ServiceException ex =new ServiceException(MessageEnum.E101002.getCode(),String.format(MessageEnum.E101002.getMessage(), userId), e);
+    		ex.setErrorContext("com.example.service"+".UserService"+".findUser");
     		ex.setErrorDescription("Connect to 3rd part service to get user timeout");
     		ex.setErrorCorrection("Please check 3rd part service");
     		ex.addParameters("url", "http://www.baidu.com");
